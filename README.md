@@ -21,8 +21,8 @@ module.exports = {
   // ...
   plugins: [
     // ...
-    '@aldridged/docusaurus-plugin-lunr'
-  ]
+    '@aldridged/docusaurus-plugin-lunr',
+  ],
 };
 ```
 

@@ -3,7 +3,7 @@
  * by Facebook, Inc., licensed under the MIT license.
  */
 
- .search-icon {
+.search-icon {
   background-image: var(--ifm-navbar-search-input-icon);
   height: auto;
   width: 24px;

@@ -1,7 +1,8 @@
 .d-s-l-a {
   width: 100%;
 }
-.d-s-l-a .aa-input, .d-s-l-a .aa-hint {
+.d-s-l-a .aa-input,
+.d-s-l-a .aa-hint {
   width: 100%;
 }
 .d-s-l-a .aa-hint {
@@ -20,7 +21,7 @@
   padding: 5px 10px;
 }
 .d-s-l-a .aa-dropdown-menu .aa-suggestion.aa-cursor {
-  background-color: #B2D7FF;
+  background-color: #b2d7ff;
   color: var(--ifm-background-surface-color);
 }
 .d-s-l-a .aa-dropdown-menu .aa-suggestion em {
