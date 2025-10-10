@@ -22,7 +22,7 @@
     "copyfiles:main": "ncp src build/main --filter=\"^[^.]+$|\\.(?!(ts)$)([^.]+$)\"",
     "copyfiles:module": "ncp src build/module --filter=\"^[^.]+$|\\.(?!(ts)$)([^.]+$)\"",
     "fix": "run-s fix:*",
-    "fix:prettier": "prettier \"src/**/*.ts\" --write",
+    "fix:prettier": "prettier . --write",
     "fix:tslint": "tslint --fix --project .",
     "test": "run-s build test:*",
     "test:lint": "echo noop",

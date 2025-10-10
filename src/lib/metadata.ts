@@ -14,7 +14,7 @@ import { MetadataRaw } from './types';
 
 function inferVersion(
   dirName: string,
-  versions: ReadonlyArray<string>
+  versions: ReadonlyArray<string>,
 ): string | null {
   const maybeVersion = dirName.split('/', 1).shift();
   const inferredVersion = maybeVersion
@@ -27,7 +27,7 @@ function inferVersion(
 
 function versionFromSource(
   dirName: string,
-  versions: ReadonlyArray<string>
+  versions: ReadonlyArray<string>,
 ): string | null {
   return /^version-/.test(dirName) ? inferVersion(dirName, versions) : 'next';
 }

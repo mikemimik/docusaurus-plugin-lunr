@@ -21,7 +21,7 @@ const DEFAULT_OPTIONS: PluginOptions = {
 
 export default function pluginContentLunr(
   context: LoadContext,
-  opts: Partial<PluginOptions>
+  opts: Partial<PluginOptions>,
 ): Plugin<LoadedContent | null> {
   const options = { ...DEFAULT_OPTIONS, ...opts };
   const { siteDir } = context;
@@ -48,8 +48,8 @@ export default function pluginContentLunr(
         ? []
         : flatten(
             include.map((p) =>
-              versionsNames.map((v) => `${versionedDir}/${v}/${p}`)
-            )
+              versionsNames.map((v) => `${versionedDir}/${v}/${p}`),
+            ),
           );
       return [...globPattern, ...versionGlobPattern];
     },
@@ -71,12 +71,12 @@ export default function pluginContentLunr(
           options,
           refDir: docsDir,
           source,
-        })
+        }),
       );
 
       // Metadata for versioned docs
       const versionedGlob = flatten(
-        include.map((p) => versionsNames.map((v) => `${v}/${p}`))
+        include.map((p) => versionsNames.map((v) => `${v}/${p}`)),
       );
       const versionedFiles = await globby(versionedGlob, { cwd: versionedDir });
       const versionPromises = !versioning.enabled
@@ -88,7 +88,7 @@ export default function pluginContentLunr(
               options,
               refDir: versionedDir,
               source,
-            })
+            }),
           );
 
       const metadata = await Promise.all([...docsPromises, ...versionPromises]);
@@ -123,12 +123,12 @@ export default function pluginContentLunr(
       });
 
       const documents = metadata.map(
-        ({ permalink: route, title, version }) => ({ route, title, version })
+        ({ permalink: route, title, version }) => ({ route, title, version }),
       );
       // tslint:disable-next-line: no-expression-statement
       createData(
         'search-index.json',
-        JSON.stringify({ index, documents }, null, 2)
+        JSON.stringify({ index, documents }, null, 2),
       );
     },
   };

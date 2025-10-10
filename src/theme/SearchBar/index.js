@@ -14,7 +14,7 @@ import useDocusaurusDocsVersion from '../hooks/version';
 import './input.css';
 import './autocomplete.css';
 
-const Search = props => {
+const Search = (props) => {
   const [indexState, setIndexState] = useState('empty');
   const searchBarRef = useRef(null);
   const history = useHistory();
@@ -30,50 +30,67 @@ const Search = props => {
     const indexLoaded = (index, documents, autoComplete) => {
       autoComplete.noConflict();
 
-      autoComplete.default(
-        searchBarRef.current,
-        {
-          hint: false,
-          autoselect: true,
-          cssClasses: {
-            root: 'd-s-l-a'
-          }
-        },
-        [
+      autoComplete
+        .default(
+          searchBarRef.current,
           {
-            source: (input, cb) => {
-              const terms = input
-                .split(' ')
-                .map(each => each.trim().toLowerCase())
-                .filter(each => each.length > 0);
-              const results = index.query((query) => {
-                if (currentVersion) {
-                  query.term(currentVersion, { fields: ['version'], presence: lunr.Query.presence.REQUIRED });
-                }
-                query.term(terms, { fields: ['title', 'content'] });
-                query.term(terms, { fields: ['title', 'content'], wildcard: lunr.Query.wildcard.TRAILING })
-              }).slice(0, 8);
-              cb(results);
+            hint: false,
+            autoselect: true,
+            cssClasses: {
+              root: 'd-s-l-a',
             },
-            templates: {
-              suggestion: function (suggestion) {
-                const document = documents.find(document => document.route === suggestion.ref);
-                return autoComplete.escapeHighlightedString(document.title);
+          },
+          [
+            {
+              source: (input, cb) => {
+                const terms = input
+                  .split(' ')
+                  .map((each) => each.trim().toLowerCase())
+                  .filter((each) => each.length > 0);
+                const results = index
+                  .query((query) => {
+                    if (currentVersion) {
+                      query.term(currentVersion, {
+                        fields: ['version'],
+                        presence: lunr.Query.presence.REQUIRED,
+                      });
+                    }
+                    query.term(terms, { fields: ['title', 'content'] });
+                    query.term(terms, {
+                      fields: ['title', 'content'],
+                      wildcard: lunr.Query.wildcard.TRAILING,
+                    });
+                  })
+                  .slice(0, 8);
+                cb(results);
               },
-              empty: () => {
-                return 'no results'
-              }
-            }
-          }
-        ]
-      ).on('autocomplete:selected', function (event, suggestion, dataset, context) {
-        history.push(suggestion.ref);
-      });
+              templates: {
+                suggestion: function (suggestion) {
+                  const document = documents.find(
+                    (document) => document.route === suggestion.ref,
+                  );
+                  return autoComplete.escapeHighlightedString(document.title);
+                },
+                empty: () => {
+                  return 'no results';
+                },
+              },
+            },
+          ],
+        )
+        .on(
+          'autocomplete:selected',
+          function (event, suggestion, dataset, context) {
+            history.push(suggestion.ref);
+          },
+        );
       setIndexState('done');
-    }
+    };
 
     const [{ default: searchIndex }, autoComplete] = await Promise.all([
-      import(/* webpackChunkName: "search-index" */ '@generated/docusaurus-plugin-lunr/search-index.json'),
+      import(
+        /* webpackChunkName: "search-index" */ '@generated/docusaurus-plugin-lunr/search-index.json'
+      ),
       import('autocomplete.js'),
     ]);
     const { documents, index } = searchIndex;
@@ -95,10 +112,10 @@ const Search = props => {
   }, [props.isSearchBarExpanded]);
 
   return (
-    <div className='navbar__search' key='search-box'>
+    <div className="navbar__search" key="search-box">
       <span
-        aria-label='expand searchbar'
-        role='button'
+        aria-label="expand searchbar"
+        role="button"
         className={classnames('search-icon', {
           'search-icon-hidden': props.isSearchBarExpanded,
         })}
@@ -107,10 +124,10 @@ const Search = props => {
         tabIndex={0}
       />
       <input
-        id='search_input_react'
-        type='search'
-        placeholder='Search'
-        aria-label='Search'
+        id="search_input_react"
+        type="search"
+        placeholder="Search"
+        aria-label="Search"
         className={classnames(
           'navbar__search-input',
           { 'search-bar-expanded': props.isSearchBarExpanded },

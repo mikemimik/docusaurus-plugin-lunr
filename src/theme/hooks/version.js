@@ -16,7 +16,9 @@ export default function useDocusaurusDocsVersion() {
       const { siteConfig = {} } = context;
       const { baseUrl, customFields = {}, url: origin } = siteConfig;
       const { routeBasePath = 'docs' } = customFields;
-      const routeBase = routeBasePath.endsWith('/') ? routeBasePath : `${routeBasePath}/`;
+      const routeBase = routeBasePath.endsWith('/')
+        ? routeBasePath
+        : `${routeBasePath}/`;
 
       const { pathname } = location;
       const docsUri = URI(routeBase, URI(baseUrl, origin));
@@ -26,7 +28,11 @@ export default function useDocusaurusDocsVersion() {
 
       try {
         const { default: knownVersions } = await import('@site/versions.json');
-        const currentVersion = concat(knownVersions, 'next').includes(maybeVersion) ? maybeVersion : head(knownVersions);
+        const currentVersion = concat(knownVersions, 'next').includes(
+          maybeVersion,
+        )
+          ? maybeVersion
+          : head(knownVersions);
         // tslint:disable-next-line: no-expression-statement
         setVersion(currentVersion);
       } catch (err) {
