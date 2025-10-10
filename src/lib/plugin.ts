@@ -99,7 +99,7 @@ export default function pluginContentLunr(
     }: {
       readonly content: LoadedContent;
       readonly actions: PluginContentLoadedActions;
-    }): void {
+    }): Promise<void> {
       const { metadata = [] } = content;
       const { createData, setGlobalData } = actions;
 
