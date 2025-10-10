@@ -57,6 +57,8 @@ export default async function processMetadata({
 
   const contents = await fileStringPromise;
   const plaintext = removeMd(striptags(contents));
+
+  // INFO: this line is just for typing sake
   const parseFrontMatter: DefaultParseFrontMatter = DEFAULT_PARSE_FRONT_MATTER;
   // @ts-ignore - the exported type for "default" parser is incorrect
   const { frontMatter = {}, content } = await parseFrontMatter({
