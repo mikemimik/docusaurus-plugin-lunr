@@ -1,9 +1,11 @@
 name: Node.js CI
 
 on:
+  # INFO: pull-requests that target main or master branch
   pull_request:
     branches:
       - main
+      - master
 
 jobs:
   build:
