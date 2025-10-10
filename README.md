@@ -53,3 +53,25 @@ a versions.json file is not present at the root of your docs repo, this will thr
 error and use a default empty array. The versions.json file is not created until you use the Docusaurus CLI to archive
 a varsion. Note that this plugin does not actually require you to have versions -- it only needs version.json, so the
 current suggestion is to manually create the file with emtpy array contents.
+
+## Contributions
+
+> [!NOTE]
+>
+> - TODO: update this section of the README
+
+```json
+  "scripts-info": {
+    "info": "Display information about the package scripts",
+    "build": "Clean and rebuild the project",
+    "fix": "Try to automatically fix any linting problems",
+    "test": "Lint and unit test the project",
+    "watch": "Watch and rebuild the project on save, then rerun relevant tests",
+    "cov": "Rebuild, run tests, then create and open the coverage report",
+    "doc": "Generate HTML API documentation and open it in a browser",
+    "doc:json": "Generate API documentation in typedoc JSON format",
+    "version": "Bump package.json version, update CHANGELOG.md, tag release",
+    "reset": "Delete all untracked files and reset the repo to the last commit",
+    "prepare-release": "One-step: clean, build, test, publish docs, and prep a release"
+  },
+```
