@@ -1,10 +1,13 @@
-import { LoadContext, Plugin, PluginContentLoadedActions } from '@docusaurus/types';
+import {
+  LoadContext,
+  Plugin,
+  PluginContentLoadedActions,
+} from '@docusaurus/types';
 import fs from 'fs-extra';
 import globby from 'globby';
 import { flatten } from 'lodash/fp';
 import lunr from 'lunr';
 import path from 'path';
-
 
 import loadEnv from './env';
 import processMetadata from './metadata';
@@ -18,7 +21,7 @@ const DEFAULT_OPTIONS: PluginOptions = {
 
 export default function pluginContentLunr(
   context: LoadContext,
-  opts: Partial<PluginOptions>,
+  opts: Partial<PluginOptions>
 ): Plugin<LoadedContent | null> {
   const options = { ...DEFAULT_OPTIONS, ...opts };
   const { siteDir } = context;
@@ -28,7 +31,7 @@ export default function pluginContentLunr(
   const env: Env = loadEnv(siteDir);
   const { versioning } = env;
   const { versions, docsDir: versionedDir } = versioning;
-  const versionsNames = versions.map(version => `version-${version}`);
+  const versionsNames = versions.map((version) => `version-${version}`);
 
   return {
     name: 'docusaurus-plugin-lunr',
@@ -40,10 +43,14 @@ export default function pluginContentLunr(
     // tslint:disable-next-line: readonly-array
     getPathsToWatch(): string[] {
       const { include } = options;
-      const globPattern = include.map(pattern => `${docsDir}/${pattern}`);
-      const versionGlobPattern = (!versioning.enabled) ? [] : flatten(
-        include.map(p => versionsNames.map(v => `${versionedDir}/${v}/${p}`))
-      );
+      const globPattern = include.map((pattern) => `${docsDir}/${pattern}`);
+      const versionGlobPattern = !versioning.enabled
+        ? []
+        : flatten(
+            include.map((p) =>
+              versionsNames.map((v) => `${versionedDir}/${v}/${p}`)
+            )
+          );
       return [...globPattern, ...versionGlobPattern];
     },
 
@@ -57,35 +64,43 @@ export default function pluginContentLunr(
 
       // Metadata for default/ master docs files.
       const docsFiles = await globby(include, { cwd: docsDir });
-      const docsPromises = docsFiles.map(async source => processMetadata({
-        context,
-        env,
-        options,
-        refDir: docsDir,
-        source,
-      }));
+      const docsPromises = docsFiles.map(async (source) =>
+        processMetadata({
+          context,
+          env,
+          options,
+          refDir: docsDir,
+          source,
+        })
+      );
 
       // Metadata for versioned docs
-      const versionedGlob = flatten(include.map(p => versionsNames.map(v => `${v}/${p}`)));
+      const versionedGlob = flatten(
+        include.map((p) => versionsNames.map((v) => `${v}/${p}`))
+      );
       const versionedFiles = await globby(versionedGlob, { cwd: versionedDir });
-      const versionPromises = (!versioning.enabled) ? [] : versionedFiles.map(async source => processMetadata({
-        context,
-        env,
-        options,
-        refDir: versionedDir,
-        source,
-      }));
+      const versionPromises = !versioning.enabled
+        ? []
+        : versionedFiles.map(async (source) =>
+            processMetadata({
+              context,
+              env,
+              options,
+              refDir: versionedDir,
+              source,
+            })
+          );
 
       const metadata = await Promise.all([...docsPromises, ...versionPromises]);
-      return ({ metadata });
+      return { metadata };
     },
 
     contentLoaded({
       content,
-      actions
+      actions,
     }: {
-      readonly content: LoadedContent,
-      readonly actions: PluginContentLoadedActions
+      readonly content: LoadedContent;
+      readonly actions: PluginContentLoadedActions;
     }): void {
       const { metadata = [] } = content;
       const { createData } = actions;
@@ -101,15 +116,20 @@ export default function pluginContentLunr(
             content: plaintext,
             route: permalink,
             title,
-            version
+            version,
           });
         }, this);
         // tslint:enable: no-expression-statement no-this typedef
       });
 
-      const documents = metadata.map(({ permalink: route, title, version }) => ({ route, title, version }));
+      const documents = metadata.map(
+        ({ permalink: route, title, version }) => ({ route, title, version })
+      );
       // tslint:disable-next-line: no-expression-statement
-      createData('search-index.json', JSON.stringify({ index, documents }, null, 2));
-    }
+      createData(
+        'search-index.json',
+        JSON.stringify({ index, documents }, null, 2)
+      );
+    },
   };
-};
+}

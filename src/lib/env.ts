@@ -12,7 +12,7 @@ const VERSION_OPTIONS_DISABLED = {
     enabled: false,
     latestVersion: null,
     versions: [],
-  }
+  },
 };
 
 function getVersionedDocsDir(siteDir: string): string {
@@ -25,7 +25,9 @@ function getVersionsJSONFile(siteDir: string): string {
 
 function getVersions(siteDir: string): ReadonlyArray<string> {
   const versionsJSONFile = getVersionsJSONFile(siteDir);
-  return fs.existsSync(versionsJSONFile) ? JSON.parse(fs.readFileSync(versionsJSONFile, 'utf8')) : [];
+  return fs.existsSync(versionsJSONFile)
+    ? JSON.parse(fs.readFileSync(versionsJSONFile, 'utf8'))
+    : [];
 }
 
 function getOptions(siteDir: string, versions: ReadonlyArray<string>): Env {
@@ -35,11 +37,13 @@ function getOptions(siteDir: string, versions: ReadonlyArray<string>): Env {
       enabled: true,
       latestVersion: head(versions),
       versions,
-    }
+    },
   };
 }
 
 export default function (siteDir: string): Env {
   const versions = getVersions(siteDir);
-  return size(versions) ? getOptions(siteDir, versions) : VERSION_OPTIONS_DISABLED;
+  return size(versions)
+    ? getOptions(siteDir, versions)
+    : VERSION_OPTIONS_DISABLED;
 }

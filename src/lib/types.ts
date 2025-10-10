@@ -23,7 +23,7 @@ export interface VersioningEnv {
   readonly latestVersion: string | null;
   readonly versions: ReadonlyArray<string>;
   readonly docsDir: string;
-};
+}
 
 export interface Env {
   readonly versioning: VersioningEnv;
