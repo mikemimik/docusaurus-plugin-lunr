@@ -8,6 +8,7 @@ import classnames from 'classnames';
 import * as lunr from 'lunr';
 
 import { useHistory } from '@docusaurus/router';
+import { usePluginData } from '@docusaurus/useGlobalData';
 
 import useDocusaurusDocsVersion from '../hooks/version';
 
@@ -20,6 +21,9 @@ const Search = (props) => {
   const history = useHistory();
 
   const currentVersion = useDocusaurusDocsVersion();
+  const { searchIndexJsonPath } = usePluginData(
+    '@mikemimik/docusaurus-plugin-lunr',
+  );
 
   const loadIndex = async () => {
     if (indexState !== 'empty') {
@@ -88,9 +92,8 @@ const Search = (props) => {
     };
 
     const [{ default: searchIndex }, autoComplete] = await Promise.all([
-      import(
-        /* webpackChunkName: "search-index" */ '@generated/docusaurus-plugin-lunr/search-index.json'
-      ),
+      /* webpackChunkName: "search-index" */
+      import(searchIndexJsonPath),
       import('autocomplete.js'),
     ]);
     const { documents, index } = searchIndex;

@@ -40,7 +40,6 @@ export default function pluginContentLunr(
       return path.resolve(__dirname, '../theme');
     },
 
-    // tslint:disable-next-line: readonly-array
     getPathsToWatch(): string[] {
       const { include } = options;
       const globPattern = include.map((pattern) => `${docsDir}/${pattern}`);
@@ -57,7 +56,6 @@ export default function pluginContentLunr(
     async loadContent(): Promise<LoadedContent> {
       const { include } = options;
 
-      // tslint:disable-next-line: no-if-statement
       if (!fs.existsSync(docsDir)) {
         return null;
       }
@@ -95,41 +93,42 @@ export default function pluginContentLunr(
       return { metadata };
     },
 
-    contentLoaded({
+    async contentLoaded({
       content,
       actions,
     }: {
       readonly content: LoadedContent;
       readonly actions: PluginContentLoadedActions;
-    }): void {
+    }): Promise<void> {
       const { metadata = [] } = content;
-      const { createData } = actions;
+      const { createData, setGlobalData } = actions;
 
-      // tslint:disable: no-expression-statement no-this typedef
       const index = lunr(function () {
         this.ref('route');
         this.field('title');
         this.field('content');
         this.field('version');
-        metadata.forEach(function ({ permalink, title, version, plaintext }) {
+        for (const { permalink, title, version, plaintext } of metadata) {
           this.add({
             content: plaintext,
             route: permalink,
             title,
             version,
           });
-        }, this);
-        // tslint:enable: no-expression-statement no-this typedef
+        }
       });
 
       const documents = metadata.map(
         ({ permalink: route, title, version }) => ({ route, title, version }),
       );
-      // tslint:disable-next-line: no-expression-statement
-      createData(
+
+      const searchIndexJsonPath = await createData(
         'search-index.json',
+        // TODO: don't use `null, 2` it makes the JSON file a lot larger
         JSON.stringify({ index, documents }, null, 2),
       );
+
+      setGlobalData({ searchIndexJsonPath });
     },
   };
 }
