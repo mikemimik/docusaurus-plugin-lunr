@@ -1,4 +1,3 @@
-// tslint:disable:no-expression-statement
 import test from 'ava';
 
 test('placeholder just to get npm test working', async (t) => {

@@ -10,7 +10,6 @@ export default function useDocusaurusDocsVersion() {
   const context = useDocusaurusContext();
   const location = useLocation();
 
-  // tslint:disable-next-line: no-expression-statement
   useEffect(() => {
     async function determineVersion() {
       const { siteConfig = {} } = context;
@@ -33,7 +32,6 @@ export default function useDocusaurusDocsVersion() {
         )
           ? maybeVersion
           : head(knownVersions);
-        // tslint:disable-next-line: no-expression-statement
         setVersion(currentVersion);
       } catch (err) {
         console.error(err);
