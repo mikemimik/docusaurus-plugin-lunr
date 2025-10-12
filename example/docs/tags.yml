@@ -1,0 +1,9 @@
+tag1:
+  label: 'Document One'
+  permalink: '/doc-1'
+  description: 'The first document tag.'
+
+tag2:
+  label: 'Document Two'
+  permalink: '/doc-2'
+  description: 'The second document tag.'

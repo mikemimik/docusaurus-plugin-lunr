@@ -1,0 +1,18 @@
+{
+  "name": "docusaurus-example",
+  "scripts": {
+    "build": "docusaurus build",
+    "clear": "docusaurus clear",
+    "serve": "docusaurus serve",
+    "start": "docusaurus start",
+    "swizzle": "docusaurus swizzle"
+  },
+  "dependencies": {
+    "@docusaurus/core": "3.9.1",
+    "@docusaurus/faster": "^3.9.1",
+    "@docusaurus/plugin-content-docs": "3.9.1",
+    "@docusaurus/theme-classic": "3.9.1",
+    "@mikemimik/docusaurus-plugin-lunr": "file:../build/main/index.js",
+    "react-router-dom": "^5.3.4"
+  }
+}
