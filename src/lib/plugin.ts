@@ -101,7 +101,7 @@ export default function pluginContentLunr(
       readonly actions: PluginContentLoadedActions;
     }): Promise<void> {
       const { metadata = [] } = content;
-      const { createData, setGlobalData } = actions;
+      const { setGlobalData } = actions;
 
       const index = lunr(function () {
         this.ref('route');
@@ -122,13 +122,7 @@ export default function pluginContentLunr(
         ({ permalink: route, title, version }) => ({ route, title, version }),
       );
 
-      const searchIndexJsonPath = await createData(
-        'search-index.json',
-        // TODO: don't use `null, 2` it makes the JSON file a lot larger
-        JSON.stringify({ index, documents }, null, 2),
-      );
-
-      setGlobalData({ searchIndexJsonPath });
+      setGlobalData({ searchIndex: { index, documents } });
     },
   };
 }
