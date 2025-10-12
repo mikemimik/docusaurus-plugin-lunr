@@ -21,9 +21,9 @@ const Search = (props) => {
   const history = useHistory();
 
   const currentVersion = useDocusaurusDocsVersion();
-  const { searchIndexJsonPath } = usePluginData(
-    '@mikemimik/docusaurus-plugin-lunr',
-  );
+  const pluginData = usePluginData('docusaurus-plugin-lunr');
+
+  const { searchIndex } = pluginData;
 
   const loadIndex = async () => {
     if (indexState !== 'empty') {
@@ -32,7 +32,7 @@ const Search = (props) => {
     setIndexState('loading');
 
     const indexLoaded = (index, documents, autoComplete) => {
-      autoComplete.noConflict();
+      autoComplete.default.noConflict();
 
       autoComplete
         .default(
@@ -73,7 +73,9 @@ const Search = (props) => {
                   const document = documents.find(
                     (document) => document.route === suggestion.ref,
                   );
-                  return autoComplete.escapeHighlightedString(document.title);
+                  return autoComplete.default.escapeHighlightedString(
+                    document.title,
+                  );
                 },
                 empty: () => {
                   return 'no results';
@@ -91,11 +93,8 @@ const Search = (props) => {
       setIndexState('done');
     };
 
-    const [{ default: searchIndex }, autoComplete] = await Promise.all([
-      /* webpackChunkName: "search-index" */
-      import(searchIndexJsonPath),
-      import('autocomplete.js'),
-    ]);
+    const autoComplete = await import('autocomplete.js');
+
     const { documents, index } = searchIndex;
     indexLoaded(lunr.Index.load(index), documents, autoComplete);
   };
