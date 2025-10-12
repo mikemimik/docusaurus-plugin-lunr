@@ -2,9 +2,8 @@
 
 Docusaurus v2 plugin to create a local search index for use with Lunr.js
 
-> [!Note]: This library was created with [typescript-starter](https://github.com/bitjson/typescript-starter).
-> Currently, the `test` target fails with Prettier formatting compliance errors. The plugin does build and run,
-> so I'm ignoring Prettier for now.
+> [!Note]
+> This library was created with [typescript-starter](https://github.com/bitjson/typescript-starter).
 
 ## Installation
 
