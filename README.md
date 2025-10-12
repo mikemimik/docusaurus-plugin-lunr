@@ -1,6 +1,6 @@
 # docusaurus-plugin-lunr
 
-Docusaurus v2 plugin to create a local search index for use with Lunr.js
+Docusaurus (v2/v3) plugin to create a local search index for use with Lunr.js
 
 > [!Note]
 > This library was created with [typescript-starter](https://github.com/bitjson/typescript-starter).
@@ -42,25 +42,60 @@ module.exports = {
 };
 ```
 
+## Usage
+
+Once you've added this plugin to the `plugins` list the index
+_(described below)_ will be generated when `docusaurus build` is run. If you
+want to implement search in the `Navbar` by using the `themeConfig.navbar`
+configuration with an item `{ type: 'search' }` then you'll need to swizzle
+the `SearchBar` from `@docusaurus/theme-classic` to do so.
+
+```bash
+docusaurus swizzle @docusaurus/theme-classic SearchBar --eject
+```
+
+The above command will give you a `theme/SearchBar` component, where you can
+import `@theme/LunrSearchBar` to use. You can see an example of this in the
+`example/` folder in this repository.
+
+> [!IMPORTANT]
+> There must be a `versions.json` file at the root of the docusaurus instance
+> in order for this plugin to function correctly. It's not necessary for
+> there to be _actual_ versions but this file must exist, and at the very
+> least contain an empty array "`[]`".
+
+```javascript
+import LunrSearchBar from '@theme/LunrSearchBar';
+
+const SearchBar = () => {
+  return (
+    <LunrSearchBar
+      handleSearchBarToggle={/* function */ () => {}}
+      isSearchBarExpanded={/* boolean */ true}
+    />
+  );
+};
+```
+
 ## Generated index
 
-The plugin watches and processes markdown files in a similar manner to the official
-[docusaurus-plugin-content-docs](https://github.com/facebook/docusaurus/tree/master/packages/docusaurus-plugin-content-docs) plugin. The content is stripped of HTML tags and Markdown formatting,
-and the resulting plaintext is added to a [Lunr.js](https://lunrjs.com/) index which gets serialized to the standard Docusaurus v2 plugin [contentLoaded createData](https://v2.docusaurus.io/docs/lifecycle-apis#async-contentloadedcontent-actions) output location (by default, `<repo>/.docusaurus/docusaurus-plugin-lunr/search-index.json`).
-
-The index contains the following fields for each document:
+The plugin watches and processes markdown files in a similar manner to the
+official [docusaurus-plugin-content-docs](https://github.com/facebook/docusaurus/tree/master/packages/docusaurus-plugin-content-docs) plugin. The content is stripped of HTML tags and Markdown formatting,
+and the resulting plaintext is added to a [Lunr.js](https://lunrjs.com/) index.
+This index then gets added to the global plugin data which is then read by the
+`LunrSearchBar` component. The index contains the following fields for each
+document:
 
 - **content**: plaintext content
 - **route**: the permalink for the generated document route
 - **title**: document title found in the front matter
 - **version**: the associated documentation version, or `null` if no versions are present
 
-## SearchBar component
+## LunrSearchBar component
 
-The plugin includes a theme SearchBar theme component which consumes the Lunr index. By including the plugin in the
-Docusaurus config, the Navbar will include the SearchBar component which uses the generated search index. This works
-because the plugin-generated index is available via import, as the Docusaurus v2 core Webpack configuration configures
-an alias for `@generated`.
+The plugin includes a theme `LunrSearchBar` theme component which consumes the
+Lunr index. By including the plugin in the Docusaurus config, this component
+will be made available through the `@theme` alias.
 
 ## Known limitations
 
