@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 import { concat, head } from 'lodash/fp';
 import URI from 'urijs';
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import { useLocation } from '@docusaurus/router';
 
 export default function useDocusaurusDocsVersion() {
   const [version, setVersion] = useState(null);
