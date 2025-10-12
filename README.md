@@ -2,7 +2,7 @@
 
 Docusaurus v2 plugin to create a local search index for use with Lunr.js
 
-> **Note**: This library was created with [typescript-starter](https://github.com/bitjson/typescript-starter).
+> [!Note]: This library was created with [typescript-starter](https://github.com/bitjson/typescript-starter).
 > Currently, the `test` target fails with Prettier formatting compliance errors. The plugin does build and run,
 > so I'm ignoring Prettier for now.
 
@@ -11,7 +11,7 @@ Docusaurus v2 plugin to create a local search index for use with Lunr.js
 Install the plugin with npm:
 
 ```bash
-npm install --save @aldridged/docusaurus-plugin-lunr
+npm install --save @mikemimik/docusaurus-plugin-lunr
 ```
 
 Add the plugin do `docusaurus.config.js`:
@@ -21,7 +21,24 @@ module.exports = {
   // ...
   plugins: [
     // ...
-    '@aldridged/docusaurus-plugin-lunr',
+    '@mikemimik/docusaurus-plugin-lunr',
+  ],
+};
+```
+
+```javascript
+module.exports = {
+  // ...
+  plugins: [
+    // ...
+    [
+      '@mikemimik/docusaurus-plugin-lunr',
+      {
+        // INFO: This value should match what is
+        // set for @docusaurus/pluing-content-docs
+        baseRoutePath: '/',
+      },
+    ],
   ],
 };
 ```
@@ -49,9 +66,9 @@ an alias for `@generated`.
 ## Known limitations
 
 The custom React hook used by the SearchBar component performs a dynamic import via `import(@site/versions.json)`. If
-a versions.json file is not present at the root of your docs repo, this will throw, and you apparently not catch that
-error and use a default empty array. The versions.json file is not created until you use the Docusaurus CLI to archive
-a varsion. Note that this plugin does not actually require you to have versions -- it only needs version.json, so the
+a `versions.json` file is not present at the root of your docs repo, this will throw, and you apparently not catch that
+error and use a default empty array. The `versions.json` file is not created until you use the Docusaurus CLI to archive
+a varsion. Note that this plugin does not actually require you to have versions -- it only needs `version.json`, so the
 current suggestion is to manually create the file with emtpy array contents.
 
 ## Contributions
