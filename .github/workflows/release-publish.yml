@@ -1,4 +1,4 @@
-name: Publish
+name: 3. Publish
 
 on:
   release:
@@ -19,7 +19,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           registry-url: https://registry.npmjs.org/
-      - run: npm ci
+      - run: npm ci --include dev
       - run: npm run build
       - run: npm publish --access public
         env:
