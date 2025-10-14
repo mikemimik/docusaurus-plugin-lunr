@@ -1,4 +1,4 @@
-name: 3. Publish
+name: 2. Publish
 
 on:
   release:
