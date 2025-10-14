@@ -42,4 +42,4 @@ jobs:
       - run: npm run prepare-release
       - name: Push commit/tag
         run: |
-          git push --tags
+          git push --follow-tags origin main
