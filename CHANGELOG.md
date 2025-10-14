@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.0.1 (2025-10-14)
+
+
+### Bug Fixes
+
+* update git push command in pre-release CI workflow ([c512204](https://github.com/mikemimik/docusaurus-plugin-lunr/commit/c51220469bbe7d2f0f88ce181a0ade24b9334afe))
+
 ## [1.0.0-alpha.10](https://github.com/daldridge/docusaurus-plugin-lunr/compare/v1.0.0-alpha.9...v1.0.0-alpha.10) (2020-07-06)
 
 ### Bug Fixes
