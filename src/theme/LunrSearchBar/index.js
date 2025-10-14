@@ -131,6 +131,7 @@ const Search = (props) => {
           },
         ];
       },
+      detachedMediaQuery: '',
       renderer: { createElement, Fragment, render: () => {} },
       render({ children }, root) {
         if (!panelRootRef.current || rootRef.current !== root) {
