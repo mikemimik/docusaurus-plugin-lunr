@@ -39,7 +39,7 @@
     "doc:json": "typedoc src/ --exclude **/*.spec.ts --json build/docs/typedoc.json",
     "doc:publish": "gh-pages -m \"[ci skip] Updates\" -d build/docs",
     "version": "standard-version",
-    "reset": "git clean -dfx && git reset --hard && npm ci",
+    "reset": "git clean -dfx && git reset --hard && npm ci --include dev",
     "clean": "trash build .nyc_output coverage",
     "prepare-release": "run-s reset test cov:check doc:html version doc:publish"
   },
