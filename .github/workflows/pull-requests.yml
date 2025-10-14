@@ -1,4 +1,4 @@
-name: Node.js CI
+name: Pull-Request CI
 
 on:
   # INFO: pull-requests that target main or master branch
@@ -8,7 +8,7 @@ on:
       - master
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
 
     continue-on-error: ${{ matrix.experimental }}
@@ -23,7 +23,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Setup node@${{ matrix.node-version }}
         uses: actions/setup-node@v5
         with:
           node-version: ${{ matrix.node-version }}
