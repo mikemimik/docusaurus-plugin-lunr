@@ -5,18 +5,15 @@
 
 import React, {
   createElement,
-  useCallback,
   useEffect,
   useMemo,
   useRef,
   Fragment,
 } from 'react';
 import { createRoot } from 'react-dom/client';
-import classnames from 'classnames';
 import * as lunr from 'lunr';
 import { autocomplete } from '@algolia/autocomplete-js';
 
-import { useHistory } from '@docusaurus/router';
 import { usePluginData } from '@docusaurus/useGlobalData';
 
 import useDocusaurusDocsVersion from '../hooks/version';
