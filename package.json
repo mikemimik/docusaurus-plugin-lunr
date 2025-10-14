@@ -45,9 +45,10 @@
     "npm": ">=10.8.2"
   },
   "dependencies": {
+    "@algolia/autocomplete-js": "1.19.4",
+    "@algolia/autocomplete-theme-classic": "1.19.4",
     "@docusaurus/types": "^3.9.1",
     "@docusaurus/utils": "^3.9.1",
-    "autocomplete.js": "^0.37.1",
     "fs-extra": "^9.0.1",
     "globby": "^11.0.1",
     "lodash": "^4.17.15",
