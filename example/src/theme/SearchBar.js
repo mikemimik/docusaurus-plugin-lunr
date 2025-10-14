@@ -12,12 +12,36 @@ const SearchComponent = () => {
   return (
     <>
       <LunrSearchBar
-        handleSearchBarToggle={(...args) => {
-          console.group('LunrSearchBar::handleSearchBarToggle');
-          console.log('args:', args);
-          console.groupEnd();
+        maxResults={8}
+        placeholder={'Search...'}
+        transform={({ result, documents }) => {
+          const document = documents.find(
+            (document) => document.route === result.ref,
+          );
+
+          return { ...document, result };
         }}
-        isSearchBarExpanded
+        headerTemplate={() => {
+          return null;
+        }}
+        itemTemplate={(params) => {
+          const { item, components } = params;
+
+          return (
+            <div className="aa-ItemWrapper">
+              <div className="aa-ItemContent">
+                <div className="aa-ItemContentBody">
+                  <div className="aa-ItemContentTitle">
+                    <components.Highlight hit={item} attribute="title" />
+                  </div>
+                  <div className="aa-ItemContentDescription">
+                    url: {item.route}
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        }}
       />
     </>
   );
