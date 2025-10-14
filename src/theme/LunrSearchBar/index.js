@@ -150,7 +150,13 @@ const Search = (props) => {
     };
   }, [containerRef.current]);
 
-  return <div ref={containerRef} />;
+  return (
+    <div
+      id="search-container"
+      className="aa-SearchContainer"
+      ref={containerRef}
+    />
+  );
 };
 
 export default Search;
