@@ -78,6 +78,7 @@ export default async function processMetadata({
 
   const title = <string>frontMatter.title || baseID;
   const description = <string>frontMatter.description || excerpt;
+  const slug = <string>frontMatter.slug || null;
 
   // The last portion of the url path. Eg: 'foo/bar', 'bar'
   const routePath =
@@ -88,7 +89,7 @@ export default async function processMetadata({
     baseUrl,
     routeBasePath,
     versionPath,
-    routePath,
+    slug ? slug : routePath,
   ]);
 
   const metadata: MetadataRaw = {
