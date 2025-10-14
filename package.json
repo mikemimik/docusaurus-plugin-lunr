@@ -1,6 +1,6 @@
 {
   "name": "@mikemimik/docusaurus-plugin-lunr",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Lunr Search for Docusaurus",
   "author": "Michael Perrotte",
   "keywords": [

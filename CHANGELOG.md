@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.0.3 (2025-10-14)
+
+### Features
+
+- update release workflow ([b494ad9](https://github.com/mikemimik/docusaurus-plugin-lunr/commit/b494ad923eefc3446209923a4ca0e57c0d68242c))
+
 ### 0.0.2 (2025-10-14)
 
 ### Bug Fixes
