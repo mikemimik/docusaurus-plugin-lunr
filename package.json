@@ -41,7 +41,7 @@
     "version": "standard-version",
     "reset": "git clean -dfx && git reset --hard && npm ci --include dev",
     "clean": "trash build .nyc_output coverage",
-    "prepare-release": "run-s reset test cov:check doc:html version doc:publish"
+    "prepare-release": "run-s reset test cov:check doc:html version"
   },
   "engines": {
     "node": ">=20.0.0",
