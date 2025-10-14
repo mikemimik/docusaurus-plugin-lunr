@@ -1,0 +1,12 @@
+node_modules
+build
+.idea/*
+.docusaurus
+
+coverage
+.nyc_output
+*.log
+
+yarn.lock
+
+.DS_Store
