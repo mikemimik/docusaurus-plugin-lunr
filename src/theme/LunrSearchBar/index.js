@@ -84,6 +84,11 @@ const Search = (props) => {
       placeholder,
       insights: false,
       ...(components && { components }),
+      onStateChange({ prevState, state, setQuery }) {
+        if (prevState.isOpen && !state.isOpen) {
+          setQuery('');
+        }
+      },
       getSources() {
         return [
           {
