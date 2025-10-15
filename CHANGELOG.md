@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.0.4 (2025-10-15)
+
+### Features
+
+- update LunrSearchBar component ([da4fab8](https://github.com/mikemimik/docusaurus-plugin-lunr/commit/da4fab8349110d09043d62a3e6562e66d7750444))
+
 ### 0.0.3 (2025-10-14)
 
 ### Features
